@@ -1,11 +1,75 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  runOnJS,
+} from 'react-native-reanimated';
+import { useFonts } from 'expo-font';
+import { Splashscreen } from './src/screens/Splashscreen';
+import { LoginScreen } from './src/screens/login';
 
 export default function App() {
+  // Load custom Roboto fonts globally
+  const [fontsLoaded] = useFonts({
+    'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
+    'Roboto-Medium': require('./assets/fonts/Roboto-Medium.ttf'),
+    'Roboto-Bold': require('./assets/fonts/Roboto-Bold.ttf'),
+    'Roboto-Black': require('./assets/fonts/Roboto-Black.ttf'),
+  });
+
+  const [currentScreen, setCurrentScreen] = useState<'splash' | 'login'>('splash');
+  const [hasStartedTransition, setHasStartedTransition] = useState(false);
+  const transitionProgress = useSharedValue(1.0); // 1.0 = full splash, 0.0 = full login
+
+  // Outgoing splash overlay animations
+  const splashStyle = useAnimatedStyle(() => {
+    return {
+      opacity: transitionProgress.value,
+      transform: [
+        { scale: 1.0 + (1.0 - transitionProgress.value) * 0.06 } // subtle outward growth
+      ],
+    };
+  });
+
+  // Incoming login overlay animations
+  const loginStyle = useAnimatedStyle(() => {
+    return {
+      opacity: 1.0 - transitionProgress.value,
+    };
+  });
+
+  const handleSplashComplete = () => {
+    setHasStartedTransition(true);
+    // Cross-fade timing: 600ms ultra-smooth transition
+    transitionProgress.value = withTiming(0.0, { duration: 600 }, (finished) => {
+      if (finished) {
+        runOnJS(setCurrentScreen)('login');
+      }
+    });
+  };
+
+  // Wait for Roboto font loading before rendering the React Native views
+  if (!fontsLoaded) {
+    return <View style={styles.loaderContainer} />;
+  }
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+      {/* 1. Login Screen (rendered in background, fades in) */}
+      {(currentScreen === 'login' || hasStartedTransition) && (
+        <Animated.View style={[StyleSheet.absoluteFill, loginStyle]}>
+          <LoginScreen />
+        </Animated.View>
+      )}
+
+      {/* 2. Splash Screen (rendered on top, fades out) */}
+      {currentScreen === 'splash' && (
+        <Animated.View style={[StyleSheet.absoluteFill, splashStyle]}>
+          <Splashscreen onComplete={handleSplashComplete} />
+        </Animated.View>
+      )}
     </View>
   );
 }
@@ -13,8 +77,10 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#000000',
+  },
+  loaderContainer: {
+    flex: 1,
+    backgroundColor: '#000000', // Matches the splash background seamlessly
   },
 });
