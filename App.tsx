@@ -17,6 +17,7 @@ export default function App() {
     'Roboto-Medium': require('./assets/fonts/Roboto-Medium.ttf'),
     'Roboto-Bold': require('./assets/fonts/Roboto-Bold.ttf'),
     'Roboto-Black': require('./assets/fonts/Roboto-Black.ttf'),
+    'JetBrainsMono-ExtraBold': require('./assets/fonts/JetBrainsMono-ExtraBold.ttf'),
   });
 
   const [currentScreen, setCurrentScreen] = useState<'splash' | 'login'>('splash');

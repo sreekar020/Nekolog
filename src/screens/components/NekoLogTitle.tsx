@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   logoText: {
+    fontFamily: 'JetBrainsMono-ExtraBold',
     fontWeight: '900',
     color: '#FFFFFF',
   },
