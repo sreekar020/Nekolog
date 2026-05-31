@@ -12,7 +12,11 @@ import { NekoLogTitle } from './components/NekoLogTitle';
 
 const { width } = Dimensions.get('window');
 
-export const LoginScreen: React.FC = () => {
+interface LoginScreenProps {
+  onLogin: () => void;
+}
+
+export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
   // Mascot frame-by-frame blink state (open -> mid -> closed -> mid -> open)
   const [blinkFrame, setBlinkFrame] = useState<'open' | 'mid' | 'closed'>('open');
   
@@ -39,7 +43,7 @@ export const LoginScreen: React.FC = () => {
 
     // 2. Continuous frame-by-frame blinking animation loop (ping-pong sequence)
     let active = true;
-    let timeoutId: NodeJS.Timeout;
+    let timeoutId: any;
 
     const animateBlink = () => {
       if (!active) return;
@@ -159,11 +163,14 @@ export const LoginScreen: React.FC = () => {
   };
 
   return (
-    <Pressable style={styles.container} onPress={handleScreenPress}>
+    <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#000000" />
       
+      {/* Absolute background pressable to dismiss peeking cat without blocking active buttons */}
+      <Pressable style={StyleSheet.absoluteFill} onPress={handleScreenPress} />
+      
       {/* Decorative premium dark glow */}
-      <View style={styles.radialGlow} />
+      <View style={styles.radialGlow} pointerEvents="none" />
 
       <Animated.View style={[styles.content, animatedContentStyle]}>
         {/* stable Brand Mascot with Blink Loop (No Float, No Shadow) */}
@@ -193,6 +200,7 @@ export const LoginScreen: React.FC = () => {
             ]}
             onPressIn={handlePressIn}
             onPressOut={handlePressOut}
+            onPress={onLogin}
           >
             <Svg width="22" height="22" viewBox="0 0 24 24" fill="none" style={styles.githubIcon}>
               <Path
@@ -223,7 +231,7 @@ export const LoginScreen: React.FC = () => {
           <View style={styles.speechArrow} />
         </Animated.View>
       </Animated.View>
-    </Pressable>
+    </View>
   );
 };
 

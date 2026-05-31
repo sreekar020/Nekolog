@@ -7,11 +7,13 @@ import Animated, {
   runOnJS,
 } from 'react-native-reanimated';
 import { useFonts } from 'expo-font';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Splashscreen } from './src/screens/Splashscreen';
 import { LoginScreen } from './src/screens/login';
+import { HomeScreen } from './src/home screen/Home';
 
 export default function App() {
-  // Load custom Roboto fonts globally
+  // Load custom Roboto and JetBrains Mono fonts globally
   const [fontsLoaded] = useFonts({
     'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
     'Roboto-Medium': require('./assets/fonts/Roboto-Medium.ttf'),
@@ -20,7 +22,7 @@ export default function App() {
     'JetBrainsMono-ExtraBold': require('./assets/fonts/JetBrainsMono-ExtraBold.ttf'),
   });
 
-  const [currentScreen, setCurrentScreen] = useState<'splash' | 'login'>('splash');
+  const [currentScreen, setCurrentScreen] = useState<'splash' | 'login' | 'home'>('splash');
   const [hasStartedTransition, setHasStartedTransition] = useState(false);
   const transitionProgress = useSharedValue(1.0); // 1.0 = full splash, 0.0 = full login
 
@@ -51,27 +53,38 @@ export default function App() {
     });
   };
 
+  const handleLoginComplete = () => {
+    setCurrentScreen('home');
+  };
+
   // Wait for Roboto font loading before rendering the React Native views
   if (!fontsLoaded) {
     return <View style={styles.loaderContainer} />;
   }
 
   return (
-    <View style={styles.container}>
-      {/* 1. Login Screen (rendered in background, fades in) */}
-      {(currentScreen === 'login' || hasStartedTransition) && (
-        <Animated.View style={[StyleSheet.absoluteFill, loginStyle]}>
-          <LoginScreen />
-        </Animated.View>
-      )}
+    <SafeAreaProvider>
+      <View style={styles.container}>
+        {/* 1. Home Screen (renders after login complete) */}
+        {currentScreen === 'home' && (
+          <HomeScreen />
+        )}
 
-      {/* 2. Splash Screen (rendered on top, fades out) */}
-      {currentScreen === 'splash' && (
-        <Animated.View style={[StyleSheet.absoluteFill, splashStyle]}>
-          <Splashscreen onComplete={handleSplashComplete} />
-        </Animated.View>
-      )}
-    </View>
+        {/* 2. Login Screen (rendered in background, fades in) */}
+        {(currentScreen === 'login' || (currentScreen === 'splash' && hasStartedTransition)) && (
+          <Animated.View style={[StyleSheet.absoluteFill, loginStyle]}>
+            <LoginScreen onLogin={handleLoginComplete} />
+          </Animated.View>
+        )}
+
+        {/* 3. Splash Screen (rendered on top, fades out) */}
+        {currentScreen === 'splash' && (
+          <Animated.View style={[StyleSheet.absoluteFill, splashStyle]}>
+            <Splashscreen onComplete={handleSplashComplete} />
+          </Animated.View>
+        )}
+      </View>
+    </SafeAreaProvider>
   );
 }
 
