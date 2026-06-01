@@ -57,7 +57,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
         <WeeklyPerformance />
 
         {/* E. Quests Preview (Make 3 Commits & Close 1 Issue) */}
-        <QuestsPreview />
+        <QuestsPreview onViewAll={() => setActiveTab('Quests')} />
 
         {/* Dynamic spacer ensuring bottom navigation never overlaps scroll elements */}
         <View style={styles.bottomSpacer} />

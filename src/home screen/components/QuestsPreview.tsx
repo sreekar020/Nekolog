@@ -3,7 +3,11 @@ import { View, StyleSheet, Pressable } from 'react-native';
 import Svg, { Path, Circle } from 'react-native-svg';
 import { Text } from './Text';
 
-export const QuestsPreview: React.FC = () => {
+interface QuestsPreviewProps {
+  onViewAll?: () => void;
+}
+
+export const QuestsPreview: React.FC<QuestsPreviewProps> = ({ onViewAll }) => {
   return (
     <View style={styles.sectionContainer}>
       {/* 1. Header Section */}
@@ -12,6 +16,7 @@ export const QuestsPreview: React.FC = () => {
         
         {/* Purple-bordered capsule badge containing View All > */}
         <Pressable 
+          onPress={onViewAll}
           style={({ pressed }) => [
             styles.viewAllBadge,
             pressed && styles.viewAllPressed
