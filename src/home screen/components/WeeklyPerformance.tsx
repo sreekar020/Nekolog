@@ -15,39 +15,33 @@ export const WeeklyPerformance: React.FC = () => {
   const StatCard = ({ title, value, valueColor, iconType }: StatCardProps) => {
     // Return custom SVG based on iconType
     const renderIcon = () => {
+      const iconColor = '#8B949E';
       switch (iconType) {
         case 'branch':
           return (
-            <Svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <Path
-                d="M6 3v12m0 0a3 3 0 106 0m-6 0a3 3 0 116 0m0 0h6m0 0a3 3 0 106 0m-6 0a3 3 0 116 0"
-                stroke="#30363D"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <Circle cx="6" cy="18" r="2.5" fill="#30363D" />
-              <Circle cx="18" cy="12" r="2.5" fill="#30363D" />
+            <Svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <Path d="M2 12h7M15 12h7" stroke={iconColor} strokeWidth="2" strokeLinecap="round" />
+              <Circle cx="12" cy="12" r="3" stroke={iconColor} strokeWidth="2" fill="none" />
             </Svg>
           );
         case 'bolt':
           return (
-            <Svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <Svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <Path
                 d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"
-                fill="#30363D"
-                stroke="#30363D"
-                strokeWidth="1.5"
+                stroke={iconColor}
+                strokeWidth="2"
+                strokeLinecap="round"
                 strokeLinejoin="round"
               />
             </Svg>
           );
         case 'trophy':
           return (
-            <Svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <Svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <Path
-                d="M6 9H4.5a2.5 2.5 0 010-5H6M18 9h1.5a2.5 2.5 0 000-5H18M4 22h16M10 14.66V17m4-2.34V17m-6 5h8M12 2a6 6 0 016 6v4H6V8a6 6 0 016-6z"
-                stroke="#30363D"
+                d="M6 9H4.5A2.5 2.5 0 012 6.5v-1A2.5 2.5 0 014.5 3H6m12 6h1.5A2.5 2.5 0 0022 6.5v-1A2.5 2.5 0 0019.5 3H18M6 3h12v9a6 6 0 01-6 6 6 6 0 01-6-6V3zm6 15v3m-4 0h8"
+                stroke={iconColor}
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -56,15 +50,11 @@ export const WeeklyPerformance: React.FC = () => {
           );
         case 'sword':
           return (
-            <Svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <Svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <Path
-                d="M14.5 17.5L3 6v5l8.5 8.5m3-2l6-6-3-3-6 6"
-                stroke="#30363D"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                d="M18 2H6c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94A6.01 6.01 0 0 0 11 13.93V18H8v2h8v-2h-3v-4.07c1.94-.36 3.53-1.63 4.39-3.44A4.99 4.99 0 0 0 20 7V4c0-1.1-.9-2-2-2zm-12 5V4h2v3c0 .55-.45 1-1 1s-1-.45-1-1zm12 0c0 .55-.45 1-1 1s-1-.45-1-1V4h2v3z"
+                fill={iconColor}
               />
-              <Path d="M13 13l-2.5-2.5" stroke="#30363D" strokeWidth="2" />
             </Svg>
           );
       }

@@ -8,9 +8,10 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useFonts } from 'expo-font';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Splashscreen } from './src/screens/Splashscreen';
-import { LoginScreen } from './src/screens/login';
+import { Splashscreen } from './src/setup screens/Splashscreen';
+import { LoginScreen } from './src/setup screens/login';
 import { HomeScreen } from './src/home screen/Home';
+import { QuestScreen } from './src/quest screen/quest';
 
 export default function App() {
   // Load custom Roboto and JetBrains Mono fonts globally
@@ -23,6 +24,7 @@ export default function App() {
   });
 
   const [currentScreen, setCurrentScreen] = useState<'splash' | 'login' | 'home'>('splash');
+  const [activeTab, setActiveTab] = useState<'Home' | 'Quests' | 'Profile' | 'DevCard'>('Home');
   const [hasStartedTransition, setHasStartedTransition] = useState(false);
   const transitionProgress = useSharedValue(1.0); // 1.0 = full splash, 0.0 = full login
 
@@ -66,8 +68,13 @@ export default function App() {
     <SafeAreaProvider>
       <View style={styles.container}>
         {/* 1. Home Screen (renders after login complete) */}
-        {currentScreen === 'home' && (
-          <HomeScreen />
+        {currentScreen === 'home' && activeTab === 'Home' && (
+          <HomeScreen activeTab={activeTab} onTabPress={setActiveTab} />
+        )}
+
+        {/* 1b. Quest Screen */}
+        {currentScreen === 'home' && activeTab === 'Quests' && (
+          <QuestScreen onTabPress={setActiveTab} />
         )}
 
         {/* 2. Login Screen (rendered in background, fades in) */}

@@ -1,33 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, ScrollView, StatusBar, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { GlobalProfileCard } from './components/GlobalProfileCard';
-import { GlobalNavBar } from './components/GlobalNavBar';
-import { CommitCatBanner } from './components/CommitCatBanner';
-import { LevelProgressCard } from './components/LevelProgressCard';
-import { StreakActiveCard } from './components/StreakActiveCard';
-import { WeeklyPerformance } from './components/WeeklyPerformance';
-import { QuestsPreview } from './components/QuestsPreview';
+import { GlobalProfileCard } from '../setup screens/components/GlobalProfileCard';
+import { GlobalNavBar } from '../setup screens/components/GlobalNavBar';
+import { DailyQuests } from './components/DailyQuests';
+import { WeeklyChallenges } from './components/WeeklyChallenges';
 
-interface HomeScreenProps {
-  activeTab?: 'Home' | 'Quests' | 'Profile' | 'DevCard';
+interface QuestScreenProps {
   onTabPress?: (tab: 'Home' | 'Quests' | 'Profile' | 'DevCard') => void;
 }
 
-export const HomeScreen: React.FC<HomeScreenProps> = ({
-  activeTab: propActiveTab,
-  onTabPress,
-}) => {
-  const [localActiveTab, setLocalActiveTab] = useState<'Home' | 'Quests' | 'Profile' | 'DevCard'>('Home');
-  
-  const activeTab = propActiveTab || localActiveTab;
-  const setActiveTab = onTabPress || setLocalActiveTab;
-
+export const QuestScreen: React.FC<QuestScreenProps> = ({ onTabPress }) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#000000" />
 
-      {/* 1. Header Profile Card (Anchored on top) with Notch Safety */}
+      {/* 1. Header Profile Card with Notch Safety */}
       <View style={styles.headerContainer}>
         <GlobalProfileCard
           username="octocat"
@@ -38,26 +26,17 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
         />
       </View>
 
-      {/* 2. Scrollable Center Content Area (Dashboard) */}
+      {/* 2. Scrollable Dashboard Area */}
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
         bounces={true}
       >
-        {/* A. Commit Cat Mascot Banner */}
-        <CommitCatBanner />
+        {/* Daily Quests Component */}
+        <DailyQuests />
 
-        {/* B. Level Progress Card */}
-        <LevelProgressCard />
-
-        {/* C. Streak Active Card */}
-        <StreakActiveCard />
-
-        {/* D. Weekly Performance Stats & Contribution Heatmap */}
-        <WeeklyPerformance />
-
-        {/* E. Quests Preview (Make 3 Commits & Close 1 Issue) */}
-        <QuestsPreview />
+        {/* Weekly Challenges Component */}
+        <WeeklyChallenges />
 
         {/* Dynamic spacer ensuring bottom navigation never overlaps scroll elements */}
         <View style={styles.bottomSpacer} />
@@ -65,8 +44,8 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
       {/* 3. Bottom Global Navigation Bar */}
       <GlobalNavBar
-        activeTab={activeTab}
-        onTabPress={(tab) => setActiveTab(tab)}
+        activeTab="Quests"
+        onTabPress={onTabPress}
       />
     </SafeAreaView>
   );
@@ -92,4 +71,5 @@ const styles = StyleSheet.create({
     height: 100, // Safe padding ensuring scrollable lists are never blocked by GlobalNavBar
   },
 });
-export default HomeScreen;
+
+export default QuestScreen;

@@ -4,8 +4,8 @@ import Svg, { Path, Rect, Circle } from 'react-native-svg';
 import { Text } from './Text';
 
 interface GlobalNavBarProps {
-  activeTab: 'Home' | 'Quests' | 'Friends' | 'Profile' | 'DevCard';
-  onTabPress?: (tab: 'Home' | 'Quests' | 'Friends' | 'Profile' | 'DevCard') => void;
+  activeTab: 'Home' | 'Quests' | 'Profile' | 'DevCard';
+  onTabPress?: (tab: 'Home' | 'Quests' | 'Profile' | 'DevCard') => void;
 }
 
 export const GlobalNavBar: React.FC<GlobalNavBarProps> = ({ activeTab, onTabPress }) => {
@@ -17,7 +17,14 @@ export const GlobalNavBar: React.FC<GlobalNavBarProps> = ({ activeTab, onTabPres
       icon: (color: string) => (
         <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
           <Path
-            d="M3 10.182V20a1 1 0 001 1h5v-6h4v6h5a1 1 0 001-1v-9.818a1 1 0 00-.316-.725l-6-5.455a1 1 0 00-1.368 0l-6 5.455A1 1 0 003 10.182z"
+            d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"
+            stroke={color}
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <Path
+            d="M9 22V12h6v10"
             stroke={color}
             strokeWidth="2"
             strokeLinecap="round"
@@ -31,25 +38,8 @@ export const GlobalNavBar: React.FC<GlobalNavBarProps> = ({ activeTab, onTabPres
       icon: (color: string) => (
         <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
           <Path
-            d="M14.5 17.5L3 6v-3h3l11.5 11.5M13 19l8-8M17 21l3.5-3.5"
-            stroke={color}
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </Svg>
-      ),
-    },
-    {
-      name: 'Friends' as const,
-      icon: (color: string) => (
-        <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <Path
-            d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"
-            stroke={color}
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            d="M18 2H6c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94A6.01 6.01 0 0 0 11 13.93V18H8v2h8v-2h-3v-4.07c1.94-.36 3.53-1.63 4.39-3.44A4.99 4.99 0 0 0 20 7V4c0-1.1-.9-2-2-2zm-12 5V4h2v3c0 .55-.45 1-1 1s-1-.45-1-1zm12 0c0 .55-.45 1-1 1s-1-.45-1-1V4h2v3z"
+            fill={color}
           />
         </Svg>
       ),

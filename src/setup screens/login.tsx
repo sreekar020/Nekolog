@@ -163,11 +163,8 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={handleScreenPress}>
       <StatusBar barStyle="light-content" backgroundColor="#000000" />
-      
-      {/* Absolute background pressable to dismiss peeking cat without blocking active buttons */}
-      <Pressable style={StyleSheet.absoluteFill} onPress={handleScreenPress} />
       
       {/* Decorative premium dark glow */}
       <View style={styles.radialGlow} pointerEvents="none" />
@@ -231,7 +228,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
           <View style={styles.speechArrow} />
         </Animated.View>
       </Animated.View>
-    </View>
+    </Pressable>
   );
 };
 

@@ -46,11 +46,11 @@ export const StreakActiveCard: React.FC = () => {
       <View style={styles.leftColumn}>
         {/* Streak Active Title Row with custom Flame SVG */}
         <View style={styles.titleRow}>
-          <Svg width="16" height="18" viewBox="0 0 24 24" fill="none" style={styles.flameIcon}>
+          <Svg width="22" height="24" viewBox="0 0 24 24" fill="none" style={styles.flameIcon}>
             <Path 
               d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1.5-3-1.5 1.5-2.5 3.25-2.5 5.5a5 5 0 1010 0c0-4.5-4-8.5-5-9.5-.75.75-3.5 4.5-3.5 9.5z" 
               stroke="#FF8C00" 
-              strokeWidth="2" 
+              strokeWidth="2.5" 
               strokeLinecap="round" 
               strokeLinejoin="round" 
             />
