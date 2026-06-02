@@ -7,20 +7,27 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 import Svg, { Path } from 'react-native-svg';
-import { Text } from '../components/Text';
-import { NekoLogTitle } from '../components/NekoLogTitle';
+import { Text } from './components/Text';
+import { NekoLogTitle } from './components/NekoLogTitle';
 
 const { width } = Dimensions.get('window');
 
-export const LoginScreen: React.FC = () => {
+interface LoginScreenProps {
+  onLogin: () => void;
+}
+
+export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
   // Mascot frame-by-frame blink state (open -> mid -> closed -> mid -> open)
   const [blinkFrame, setBlinkFrame] = useState<'open' | 'mid' | 'closed'>('open');
   
   // Speech bubble text state for peeking mascot
   const [bubbleText, setBubbleText] = useState("Hi! 👋");
 
-  // Peeking mascot animations
-  const peekTranslateX = useSharedValue(150);
+  // Track if peeking cat is visible and active on screen
+  const [peekVisible, setPeekVisible] = useState(true);
+
+  // Peeking mascot animations (starts offscreen to the left: -230)
+  const peekTranslateX = useSharedValue(-230);
   const bubbleOpacity = useSharedValue(0);
   const bubbleScale = useSharedValue(0);
 
@@ -31,37 +38,32 @@ export const LoginScreen: React.FC = () => {
 
   useEffect(() => {
     // 1. Fade content in
-    contentOpacity.value = withTiming(1, { duration: 600 });
-    contentTranslateY.value = withSpring(0, { damping: 15 });
+    contentOpacity.value = withTiming(1, { duration: 100 });
+    contentTranslateY.value = withSpring(0, { damping: 45 });
 
     // 2. Continuous frame-by-frame blinking animation loop (ping-pong sequence)
-    // 0.5s idle -> 0.08s mid -> 0.08s closed -> 0.08s mid -> repeat
     let active = true;
-    let timeoutId: NodeJS.Timeout;
+    let timeoutId: any;
 
     const animateBlink = () => {
       if (!active) return;
       
-      // Hold open state for 500ms (0.5s)
       timeoutId = setTimeout(() => {
         if (!active) return;
-        setBlinkFrame('mid'); // Eyelids half-closed (closing)
+        setBlinkFrame('mid');
 
-        // Hold mid state for 80ms
         timeoutId = setTimeout(() => {
           if (!active) return;
-          setBlinkFrame('closed'); // Eyes fully closed
+          setBlinkFrame('closed');
 
-          // Hold closed state for 80ms
           timeoutId = setTimeout(() => {
             if (!active) return;
-            setBlinkFrame('mid'); // Eyelids half-closed (opening)
+            setBlinkFrame('mid');
 
-            // Hold mid state for 80ms
             timeoutId = setTimeout(() => {
               if (!active) return;
-              setBlinkFrame('open'); // Eyes fully open again
-              animateBlink(); // Restart the cycle
+              setBlinkFrame('open');
+              animateBlink();
             }, 80);
 
           }, 80);
@@ -73,21 +75,27 @@ export const LoginScreen: React.FC = () => {
 
     animateBlink();
 
-    // 3. Peeking mascot entrance (slides in from right after 1.5 seconds)
+    // 3. Peeking mascot entrance (slides in from left after 1.5 seconds)
     const peekTimer = setTimeout(() => {
-      peekTranslateX.value = withSpring(0, { damping: 12, stiffness: 85 });
-    }, 1500);
+      if (active && peekVisible) {
+        peekTranslateX.value = withSpring(0, { damping: 35, stiffness: 65 });
+      }
+    }, 500);
 
     // 4. Speech bubble fade-in (at 2.3 seconds)
     const bubbleTimer = setTimeout(() => {
-      bubbleOpacity.value = withTiming(1, { duration: 300 });
-      bubbleScale.value = withSpring(1, { damping: 10 });
+      if (active && peekVisible) {
+        bubbleOpacity.value = withTiming(1, { duration: 200 });
+        bubbleScale.value = withSpring(1, { damping: 35 });
+      }
     }, 2300);
 
     // 5. Speech bubble text transition (at 3.8 seconds)
     const textTimer = setTimeout(() => {
-      setBubbleText("If you don't have a GitHub account, please create one and come back! 🚀");
-    }, 3800);
+      if (active && peekVisible) {
+        setBubbleText("Hi, you need GitHub account to Login");
+      }
+    }, 2000);
 
     return () => {
       active = false;
@@ -96,7 +104,17 @@ export const LoginScreen: React.FC = () => {
       clearTimeout(bubbleTimer);
       clearTimeout(textTimer);
     };
-  }, []);
+  }, [peekVisible]);
+
+  // Hide peeking cat and slide it back offscreen on click
+  const handleScreenPress = () => {
+    if (peekVisible) {
+      setPeekVisible(false);
+      peekTranslateX.value = withSpring(-230, { damping: 16, stiffness: 75 });
+      bubbleOpacity.value = withTiming(0, { duration: 200 });
+      bubbleScale.value = withTiming(0, { duration: 200 });
+    }
+  };
 
   const animatedContentStyle = useAnimatedStyle(() => {
     return {
@@ -132,7 +150,6 @@ export const LoginScreen: React.FC = () => {
     buttonScale.value = withSpring(1.0, { damping: 10 });
   };
 
-  // Determine the correct image source for the blinking frames
   const getMascotSource = () => {
     switch (blinkFrame) {
       case 'mid':
@@ -146,11 +163,11 @@ export const LoginScreen: React.FC = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={handleScreenPress}>
       <StatusBar barStyle="light-content" backgroundColor="#000000" />
       
       {/* Decorative premium dark glow */}
-      <View style={styles.radialGlow} />
+      <View style={styles.radialGlow} pointerEvents="none" />
 
       <Animated.View style={[styles.content, animatedContentStyle]}>
         {/* stable Brand Mascot with Blink Loop (No Float, No Shadow) */}
@@ -180,6 +197,7 @@ export const LoginScreen: React.FC = () => {
             ]}
             onPressIn={handlePressIn}
             onPressOut={handlePressOut}
+            onPress={onLogin}
           >
             <Svg width="22" height="22" viewBox="0 0 24 24" fill="none" style={styles.githubIcon}>
               <Path
@@ -195,22 +213,22 @@ export const LoginScreen: React.FC = () => {
         <Text style={styles.mutedText}>By continuing, you agree to connect your GitHub profile.</Text>
       </Animated.View>
 
-      {/* Peeking Mascot from Right Side (using exact mascot characteristics) */}
+      
       <Animated.View style={[styles.peekingContainer, animatedPeekStyle]}>
+        
+        <Image
+          source={require('../../assets/mascot/Neko_peak.png')}
+          style={styles.peekingMascot}
+          resizeMode="contain"
+        />
+
         {/* Speech Bubble */}
         <Animated.View style={[styles.speechBubble, animatedBubbleStyle]}>
           <Text style={styles.speechText}>{bubbleText}</Text>
           <View style={styles.speechArrow} />
         </Animated.View>
-
-        {/* Peeking Cat Image */}
-        <Image
-          source={require('../../assets/mascot/neko_curious.png')}
-          style={styles.peekingMascot}
-          resizeMode="contain"
-        />
       </Animated.View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -299,28 +317,28 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   
-  // Peeking mascot styling
+  // Peeking mascot styling (Left edge)
   peekingContainer: {
     position: 'absolute',
-    right: -45, // Peeks out slightly from the right edge
-    bottom: 25,
-    flexDirection: 'row', // Left bubble, right cat
+    left: -55, 
+    bottom: 40,
+    flexDirection: 'row',   
     alignItems: 'center',
     zIndex: 10,
   },
   peekingMascot: {
-    width: 110,
-    height: 110,
+    width: 250,
+    height: 250,
   },
   speechBubble: {
     backgroundColor: '#161B22',
-    paddingHorizontal: 14,
+    paddingHorizontal: 12,
     paddingVertical: 10,
     borderRadius: 12,
     borderWidth: 1,
     borderColor: '#30363D',
     maxWidth: 190,
-    marginRight: -10, // Overlap slightly with cat
+    marginLeft: -88, // Overlap slightly with cat on the left
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.4,
@@ -335,7 +353,7 @@ const styles = StyleSheet.create({
   },
   speechArrow: {
     position: 'absolute',
-    right: -6,
+    left: -15, 
     top: '50%',
     marginTop: -6,
     width: 0,
@@ -344,7 +362,7 @@ const styles = StyleSheet.create({
     borderTopColor: 'transparent',
     borderBottomWidth: 6,
     borderBottomColor: 'transparent',
-    borderLeftWidth: 6,
-    borderLeftColor: '#161B22',
+    borderRightWidth: 6,
+    borderRightColor: '#161B22', // Points to the left
   },
 });

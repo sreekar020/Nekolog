@@ -19,8 +19,8 @@ export const Text: React.FC<TextProps> = ({ style, ...props }) => {
     <RNText
       {...props}
       style={[
-        style,
-        { fontFamily } // Dynamic injection of global Roboto typography
+        { fontFamily }, // Default global Roboto typography
+        style, // Allow style overrides (like custom fonts)
       ]}
     />
   );

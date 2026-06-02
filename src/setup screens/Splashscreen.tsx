@@ -7,7 +7,7 @@ import Animated, {
   withDelay,
   runOnJS,
 } from 'react-native-reanimated';
-import { NekoLogTitle } from '../components/NekoLogTitle';
+import { NekoLogTitle } from './components/NekoLogTitle';
 
 interface SplashscreenProps {
   onComplete: () => void;
