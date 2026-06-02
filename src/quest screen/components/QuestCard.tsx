@@ -10,6 +10,7 @@ export interface QuestCardProps {
   xpAward: number;
   iconType: 'commit' | 'push' | 'issue' | 'trophy' | 'pull-request';
   isWeekly?: boolean;
+  onPress?: () => void;
 }
 
 export const QuestCard: React.FC<QuestCardProps> = ({
@@ -19,6 +20,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
   xpAward,
   iconType,
   isWeekly = false,
+  onPress,
 }) => {
   const isCompleted = current >= total;
   const progressPercent = Math.min(100, Math.round((current / total) * 100));
@@ -83,7 +85,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
   };
 
   return (
-    <Pressable style={[styles.cardContainer, { borderColor: cardBorderColor }]}>
+    <Pressable style={[styles.cardContainer, { borderColor: cardBorderColor }]} onPress={onPress}>
       {/* Absolute Weekly Tag */}
       {isWeekly && (
         <View style={styles.weeklyBadge}>

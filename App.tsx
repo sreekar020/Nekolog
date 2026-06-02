@@ -12,19 +12,25 @@ import { Splashscreen } from './src/setup screens/Splashscreen';
 import { LoginScreen } from './src/setup screens/login';
 import { HomeScreen } from './src/home screen/Home';
 import { QuestScreen } from './src/quest screen/quest';
+import { ProfileScreen } from './src/profile screen/profile screen';
+import { useAppStore } from './src/store/useAppStore';
 
 export default function App() {
-  // Load custom Roboto and JetBrains Mono fonts globally
+  // Load custom Roboto, JetBrains Mono, and Monaspace Neon fonts globally
   const [fontsLoaded] = useFonts({
     'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
     'Roboto-Medium': require('./assets/fonts/Roboto-Medium.ttf'),
     'Roboto-Bold': require('./assets/fonts/Roboto-Bold.ttf'),
     'Roboto-Black': require('./assets/fonts/Roboto-Black.ttf'),
     'JetBrainsMono-ExtraBold': require('./assets/fonts/JetBrainsMono-ExtraBold.ttf'),
+    'MonaspaceNeon-Regular': require('./assets/fonts/MonaspaceNeon-Regular.otf'),
+    'MonaspaceNeon-Bold': require('./assets/fonts/MonaspaceNeon-Bold.otf'),
   });
 
-  const [currentScreen, setCurrentScreen] = useState<'splash' | 'login' | 'home'>('splash');
-  const [activeTab, setActiveTab] = useState<'Home' | 'Quests' | 'Profile' | 'DevCard'>('Home');
+  const currentScreen = useAppStore((state) => state.currentScreen);
+  const setCurrentScreen = useAppStore((state) => state.setScreen);
+  const activeTab = useAppStore((state) => state.activeTab);
+  const setActiveTab = useAppStore((state) => state.setActiveTab);
   const [hasStartedTransition, setHasStartedTransition] = useState(false);
   const transitionProgress = useSharedValue(1.0); // 1.0 = full splash, 0.0 = full login
 
@@ -75,6 +81,11 @@ export default function App() {
         {/* 1b. Quest Screen */}
         {currentScreen === 'home' && activeTab === 'Quests' && (
           <QuestScreen onTabPress={setActiveTab} />
+        )}
+
+        {/* 1c. Profile Screen */}
+        {currentScreen === 'home' && activeTab === 'Profile' && (
+          <ProfileScreen onTabPress={setActiveTab} />
         )}
 
         {/* 2. Login Screen (rendered in background, fades in) */}

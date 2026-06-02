@@ -2,11 +2,14 @@ import React from 'react';
 import { View, StyleSheet, Pressable } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { Text } from './Text';
-
+import { useAppStore } from '../../store/useAppStore';
 export const LevelProgressCard: React.FC = () => {
+  const xp = useAppStore((state) => state.xp);
+  const targetXp = 3000;
+  const progressPercent = Math.min(100, Math.round((xp / targetXp) * 100));
   return (
     <Pressable 
-      style={({ pressed }) => [
+      style={({ pressed }: { pressed: boolean }) => [
         styles.cardContainer,
         pressed && styles.pressedState
       ]}
@@ -24,8 +27,8 @@ export const LevelProgressCard: React.FC = () => {
 
         {/* Ratio XP */}
         <Text style={styles.ratioText}>
-          <Text style={styles.boldXp}>2450</Text>
-          <Text style={styles.mutedXp}> / 3000 XP</Text>
+          <Text style={styles.boldXp}>{xp}</Text>
+          <Text style={styles.mutedXp}> / {targetXp} XP</Text>
         </Text>
       </View>
 
@@ -34,11 +37,11 @@ export const LevelProgressCard: React.FC = () => {
         {/* Thicker Pill-shaped Progress Track */}
         <View style={styles.trackContainer}>
           <View style={styles.trackBackground} />
-          {/* Subtle filled portion (81% width) */}
-          <View style={[styles.trackFilled, { width: '81%' }]} />
+          {/* Dynamic filled portion */}
+          <View style={[styles.trackFilled, { width: `${progressPercent}%` }]} />
         </View>
 
-        {/* Right Star Badge Capsule (☆ 81%) */}
+        {/* Right Star Badge Capsule */}
         <View style={styles.starBadge}>
           {/* Outline Star SVG */}
           <Svg width="12" height="12" viewBox="0 0 24 24" fill="none" style={styles.starIcon}>
@@ -50,7 +53,7 @@ export const LevelProgressCard: React.FC = () => {
               strokeLinejoin="round" 
             />
           </Svg>
-          <Text style={styles.starBadgeText}>81%</Text>
+          <Text style={styles.starBadgeText}>{progressPercent}%</Text>
         </View>
       </View>
 

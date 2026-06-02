@@ -2,14 +2,22 @@ import React from 'react';
 import { View, StyleSheet, Pressable } from 'react-native';
 import Svg, { Path, Circle } from 'react-native-svg';
 import { Text } from './Text';
-
+import { useAppStore } from '../../store/useAppStore';
 export const CommitCatBanner: React.FC = () => {
+  const commitsCount = useAppStore((state) => state.commitsCount);
+  const commitsTotal = useAppStore((state) => state.commitsTotal);
+  const incrementCommits = useAppStore((state) => state.incrementCommits);
+
+  const quoteText = commitsCount >= commitsTotal
+    ? '"Streak saved! You completed your commit goal for today! (+120 XP earned!)"'
+    : `"Looking sharp today! ${commitsTotal - commitsCount} commit${commitsTotal - commitsCount > 1 ? 's' : ''} away from maintaining your fire streak!"`;
   return (
     <Pressable 
-      style={({ pressed }) => [
+      style={({ pressed }: { pressed: boolean }) => [
         styles.bannerContainer,
         pressed && styles.pressedState
       ]}
+      onPress={incrementCommits}
     >
       {/* 1. Cat Mascot Circle Wrapper */}
       <View style={styles.avatarWrapper}>
@@ -62,9 +70,7 @@ export const CommitCatBanner: React.FC = () => {
       <View style={styles.dialogueBubble}>
         <Text style={styles.bannerText}>
           <Text style={styles.mascotName}>Commit Cat: </Text>
-          <Text style={styles.quoteText}>
-            "Looking sharp today! 1 commit away from maintaining your fire streak!"
-          </Text>
+          <Text style={styles.quoteText}>{quoteText}</Text>
         </Text>
       </View>
     </Pressable>
