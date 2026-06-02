@@ -12,14 +12,16 @@ interface GlobalProfileCardProps {
   onCardPress?: () => void;
 }
 
+import { useAppStore } from '../../store/useAppStore';
+
 export const GlobalProfileCard: React.FC<GlobalProfileCardProps> = ({
-  username = 'octocat',
-  level = 12,
-  streakDays = 6,
-  xp = 2450,
   onNotificationPress,
   onCardPress,
 }) => {
+  const username = useAppStore((state) => state.username);
+  const level = useAppStore((state) => state.level);
+  const streakDays = useAppStore((state) => state.streakDays);
+  const xp = useAppStore((state) => state.xp);
   return (
     <Pressable style={styles.cardContainer} onPress={onCardPress}>
       {/* 1. Avatar Section with Absolute Badges */}

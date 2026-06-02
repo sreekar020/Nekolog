@@ -2,9 +2,19 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Svg, { Path, Circle } from 'react-native-svg';
 import { Text } from './Text';
+import { useAppStore } from '../../store/useAppStore';
 import { QuestCard } from './QuestCard';
-
 export const DailyQuests: React.FC = () => {
+  const commitsCount = useAppStore((state) => state.commitsCount);
+  const commitsTotal = useAppStore((state) => state.commitsTotal);
+  const pushesCount = useAppStore((state) => state.pushesCount);
+  const pushesTotal = useAppStore((state) => state.pushesTotal);
+  const issuesCount = useAppStore((state) => state.issuesCount);
+  const issuesTotal = useAppStore((state) => state.issuesTotal);
+
+  const incrementCommits = useAppStore((state) => state.incrementCommits);
+  const incrementPushes = useAppStore((state) => state.incrementPushes);
+  const incrementIssues = useAppStore((state) => state.incrementIssues);
   return (
     <View style={styles.sectionContainer}>
       {/* Header Row */}
@@ -28,24 +38,27 @@ export const DailyQuests: React.FC = () => {
       <View style={styles.cardsList}>
         <QuestCard
           title="Make 3 Commits"
-          current={2}
-          total={3}
+          current={commitsCount}
+          total={commitsTotal}
           xpAward={120}
           iconType="commit"
+          onPress={incrementCommits}
         />
         <QuestCard
           title="Push to 2 Repositories"
-          current={2}
-          total={2}
+          current={pushesCount}
+          total={pushesTotal}
           xpAward={180}
           iconType="push"
+          onPress={incrementPushes}
         />
         <QuestCard
           title="Close 1 Issue"
-          current={1}
-          total={1}
+          current={issuesCount}
+          total={issuesTotal}
           xpAward={150}
           iconType="issue"
+          onPress={incrementIssues}
         />
       </View>
     </View>

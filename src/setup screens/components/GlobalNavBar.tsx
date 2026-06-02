@@ -37,9 +37,45 @@ export const GlobalNavBar: React.FC<GlobalNavBarProps> = ({ activeTab, onTabPres
       name: 'Quests' as const,
       icon: (color: string) => (
         <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          {/* Trophy Cup Outline */}
           <Path
-            d="M18 2H6c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94A6.01 6.01 0 0 0 11 13.93V18H8v2h8v-2h-3v-4.07c1.94-.36 3.53-1.63 4.39-3.44A4.99 4.99 0 0 0 20 7V4c0-1.1-.9-2-2-2zm-12 5V4h2v3c0 .55-.45 1-1 1s-1-.45-1-1zm12 0c0 .55-.45 1-1 1s-1-.45-1-1V4h2v3z"
-            fill={color}
+            d="M6 9c0 3.31 2.69 6 6 6s6-2.69 6-6V3H6v6z"
+            stroke={color}
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          {/* Left Handle */}
+          <Path
+            d="M6 6H4.5A2.5 2.5 0 0 0 2 8.5v1A2.5 2.5 0 0 0 4.5 12H6"
+            stroke={color}
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          {/* Right Handle */}
+          <Path
+            d="M18 6h1.5a2.5 2.5 0 0 1 2.5 2.5v1a2.5 2.5 0 0 1-2.5 2.12H18"
+            stroke={color}
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          {/* Stem Stand */}
+          <Path
+            d="M12 15v5"
+            stroke={color}
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          {/* Base */}
+          <Path
+            d="M8 20h8"
+            stroke={color}
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </Svg>
       ),
