@@ -24,30 +24,10 @@ Nekolog is a premium, beautifully crafted developer dashboard and quest-tracking
 
 ## 🛠️ Technology Stack
 
-### 🚀 Core Technologies & Frameworks
-
-| Badge | Technology / Library | Version | Role in Nekolog |
-| :--- | :--- | :--- | :--- |
-| ![Expo](https://img.shields.io/badge/Expo-56.0-00020D?style=flat-pack&logo=expo&logoColor=white) | **Expo SDK** | `~56.0.8` | App workflow tooling, custom font loaders, native build configuration |
-| ![React Native](https://img.shields.io/badge/React_Native-0.85-20232A?style=flat-pack&logo=react&logoColor=61DAFB) | **React Native Core** | `0.85.3` | Native cross-platform components, gesture system, layout engines |
-| ![React](https://img.shields.io/badge/React-19.2-20232A?style=flat-pack&logo=react&logoColor=61DAFB) | **React Core** | `19.2.3` | Component model, state orchestration, custom UI hooks |
-| ![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6?style=flat-pack&logo=typescript&logoColor=white) | **TypeScript** | `~6.0.3` | Static typing, interface contracts for game states and components |
-
-### 📦 Key Dependencies & Libraries
-
-- **State Management**: [Zustand](https://github.com/pmndrs/zustand) (`^5.0.14`) - *Powers the global game engine, handling XP gains, levels, navigation states, daily/weekly quests, and profile information.*
-- **Animations**: [React Native Reanimated](https://docs.swmansion.com/react-native-reanimated/) (`4.3.1`) - *Handles physics-based transitions, mascot scale-spring dynamics, and seamless screen cross-fades.*
-- **Vector Graphics**: [React Native SVG](https://github.com/software-mansion/react-native-svg) (`15.15.4`) - *Renders scalable icons, chevron vectors, search bars, and the git pipeline flow graph with pixel-perfect resolution.*
-- **Layout Safety**: [React Native Safe Area Context](https://github.com/th3rdwave/react-native-safe-area-context) (`~5.7.0`) - *Ensures notch/island safety on modern iOS & Android devices.*
-- **Status Bar**: `expo-status-bar` (`~56.0.4`) - *Maintains light-on-dark technical status bar aesthetics consistently across OS targets.*
-
-### 🎨 Typography & Design Tokens
-
-- **Fonts**: Custom assets registered using `expo-font`:
-  - `Roboto-Regular`, `Roboto-Medium`, `Roboto-Bold`, `Roboto-Black` (Clean UI system text)
-  - `JetBrainsMono-ExtraBold` (Monospace console branding)
-  - `MonaspaceNeon-Regular`, `MonaspaceNeon-Bold` (Coding aesthetic typography)
-- **Theme**: HSL-based dark mode palette tailored for visual contrast matching premium terminal interfaces.
+- **Languages**: TypeScript (`~6.0.3`)
+- **Framework**: React Native (`0.85.3`) with Expo SDK (`~56.0.8`)
+- **State Management**: Zustand (`^5.0.14`)
+- **Tools**: React Native Reanimated (Animations), React Native SVG (Vector Graphics & Graphs), Git, npm
 
 
 ---
