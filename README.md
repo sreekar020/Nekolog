@@ -2,65 +2,95 @@
 
 > **Gamify Your Git Workflow and Level Up Your Development Journey!**
 
-Nekolog is a premium, beautifully crafted developer dashboard and quest-tracking mobile application built with **React Native** and **Expo**. It integrates your daily Git actions (commits, pushes, issue resolution) into a gamified dashboard, complete with an interactive cat mascot (**Neko**), levels, XP, streaks, weekly contribution heatmaps, and a repository branch visualizer.
+Nekolog is a premium, beautifully crafted developer dashboard and quest-tracking mobile application built with **React Native** and **Expo**. It integrates your daily Git actions — commits, pushes, and issue resolution — into a gamified developer experience, complete with an interactive cat mascot (**Neko**), XP & levels, streaks, weekly contribution heatmaps, a repository explorer, pinned portfolio, recent badges, and a Git branch pipeline visualizer.
 
 ---
 
 ## ✨ Features
 
-- **🎮 Gamified Developer Profile**: Track your progress with XP, levels, and consecutive streaks. Reaching XP thresholds triggers level-ups!
-- **🐈 Interactive Mascot (Neko)**: Neko guide-cat dynamically blinks, reacts, peeks out to provide guidance, and reacts to your tasks.
-- **📅 Daily Quests & Weekly Challenges**: Complete target git milestones (e.g., *Make 3 Commits*, *Close 1 Issue*, *Create 2 Pushes*) to claim bonus XP.
-- **📊 Weekly Contribution Heatmap**: A custom GitHub-style grid representation of your daily developer activity directly on your phone.
-- **📂 Repository Explorer**: Browse all your GitHub repositories, check total stars, forks, open issues, and primary language indicators.
-- **🌿 Git Branch Pipeline Visualizer**: View branch trees and pipeline build statuses (Success, Running, Failed) directly inside the repository explorer.
-- **💎 Ultra-Premium UI/UX**:
-  - Seamless animated cross-fade splash screen to login screen.
-  - Interactive custom buttons, search inputs, and navigation.
-  - Custom developer typography: Roboto, JetBrains Mono, and Monaspace Neon.
+- **🎮 Gamified Developer Profile** — Track progress with XP, levels, and consecutive day streaks. Reaching XP thresholds triggers level-ups with animated feedback.
+- **🐈 Interactive Mascot (Neko)** — Neko dynamically blinks, peeks out, and reacts to your activity with frame-by-frame PNG animations.
+- **📅 Daily Quests** — Complete target Git milestones (e.g. *Make 3 Commits*, *Close 1 Issue*, *Push 2 Times*) to earn bonus XP.
+- **📆 Weekly Challenges** — Longer-horizon goals that track your activity across the full week.
+- **📊 Weekly Contribution Heatmap** — A GitHub-style grid showing daily developer activity, rendered directly in the app.
+- **📈 Level & Streak Cards** — Dedicated cards for XP progress bars and consecutive activity streaks.
+- **🗂️ Quest Preview** — A home-screen snapshot of your active daily quests and how close you are to completing them.
+- **📂 Repository Explorer** — Browse all your GitHub repositories with total stars, forks, open issues, and primary language tags.
+- **🌿 Git Branch Pipeline Visualizer** — View branch trees and pipeline statuses (Success / Running / Failed) inside the repository detail view.
+- **🗃️ Repository Summary Card** — A compact summary view for key repository metrics.
+- **📌 Pinned Portfolio** — Highlight your best repositories directly on your profile.
+- **🏅 Recent Badges** — Showcase recently earned achievement badges on the profile screen.
+- **👤 Profile Header** — Rich developer profile header with avatar, username, level badge, and XP snapshot.
+- **💎 Ultra-Premium UI/UX**
+  - Animated cross-fade splash → login screen transition.
   - Sleek, high-contrast dark theme with translucent glassmorphic elements.
+  - Custom developer typography: **Roboto**, **JetBrains Mono**, and **Monaspace Neon**.
+  - Smooth micro-animations throughout via React Native Reanimated.
 
 ---
 
 ## 🛠️ Technology Stack
 
-- **Languages**: TypeScript (`~6.0.3`)
-- **Framework**: React Native (`0.85.3`) with Expo SDK (`~56.0.8`)
-- **State Management**: Zustand (`^5.0.14`)
-- **Tools**: React Native Reanimated (Animations), React Native SVG (Vector Graphics & Graphs), Git, npm
-
+| Layer | Technology |
+|---|---|
+| Language | TypeScript `~6.0.3` |
+| Framework | React Native `0.85.3` + Expo SDK `~56.0.8` |
+| State Management | Zustand `^5.0.14` |
+| Animations | React Native Reanimated `4.3.1` |
+| Vector Graphics | React Native SVG `15.15.4` |
+| Safe Area Handling | React Native Safe Area Context `~5.7.0` |
 
 ---
 
 ## 📁 Project Structure
 
-```bash
+```
 Nekolog/
-├── assets/                    # Static assets & assets configuration
-│   ├── fonts/                 # Custom Typography (Roboto, JetBrains Mono, Monaspace Neon)
-│   ├── images/                # Avatar profiles and splash assets
-│   └── mascot/                # Neko frame-by-frame state and expression frames (happy, closed, peek, curious)
-├── src/                       # Main application source
-│   ├── home screen/           # Home tab dashboard
-│   │   ├── components/        # Profile cards, contribution heatmap grid, mascot banners
-│   │   └── Home.tsx           # Home Screen Shell
-│   ├── profile screen/        # Profile & Repository explorer tab
-│   │   ├── components/        # Repos list, Git branch pipelines graph, summary cards
-│   │   ├── all repos.tsx      # Repository Explorer Screen
-│   │   └── profile screen.tsx # Profile Screen Shell
-│   ├── quest screen/          # Daily and weekly quest panel
-│   │   ├── components/        # Quest logging buttons and cards
-│   │   └── quest.tsx          # Quest Screen Shell
-│   ├── setup screens/         # Boot and Authentication interfaces
-│   │   ├── components/        # App Title headers and global components
-│   │   ├── Splashscreen.tsx   # Custom animated boot splash screen
-│   │   └── login.tsx          # GitHub connect login screen with blinking peeking mascot
-│   └── store/                 # Global state management
-│       └── useAppStore.ts     # Zustand Store (nav state, profile XP tracker, quest triggers)
-├── App.tsx                    # Application router & main entry shell
-├── app.json                   # Expo build configuration metadata
-├── index.ts                   # Entry point register
-└── package.json               # Dependencies and scripts definitions
+├── assets/                          # Static assets
+│   ├── fonts/                       # Roboto, JetBrains Mono, Monaspace Neon
+│   ├── images/                      # Avatar profiles and splash assets
+│   └── mascot/                      # Neko frame-by-frame PNG states (open, mid, closed, peek, curious)
+├── src/
+│   ├── home screen/
+│   │   ├── components/
+│   │   │   ├── CommitCatBanner.tsx   # Animated Neko mascot banner with speech bubbles
+│   │   │   ├── GlobalNavBar.tsx      # Bottom tab navigation bar
+│   │   │   ├── GlobalProfileCard.tsx # Top-of-home profile snapshot card
+│   │   │   ├── LevelProgressCard.tsx # XP progress bar and level display
+│   │   │   ├── NekoLogTitle.tsx      # Branded app title header
+│   │   │   ├── QuestsPreview.tsx     # Home-screen daily quest status preview
+│   │   │   ├── StreakActiveCard.tsx  # Consecutive day streak tracker card
+│   │   │   ├── Text.tsx              # Typography utility component
+│   │   │   └── WeeklyPerformance.tsx # Weekly contribution heatmap grid
+│   │   └── Home.tsx                  # Home Screen Shell
+│   ├── profile screen/
+│   │   ├── components/
+│   │   │   ├── GitPipelineGraph.tsx      # Branch tree & pipeline status visualizer
+│   │   │   ├── PinnedPortfolio.tsx       # Pinned repository portfolio section
+│   │   │   ├── ProfileHeader.tsx         # Avatar, username, level badge & XP header
+│   │   │   ├── RecentBadges.tsx          # Recently earned achievement badges
+│   │   │   ├── RepositoriesList.tsx      # Full repository explorer list
+│   │   │   └── RepositorySummaryCard.tsx # Compact repository metrics card
+│   │   ├── all repos.tsx             # Repository Explorer Screen
+│   │   └── profile screen.tsx        # Profile Screen Shell
+│   ├── quest screen/
+│   │   ├── components/
+│   │   │   ├── DailyQuests.tsx       # Daily quest cards and progress tracking
+│   │   │   ├── QuestCard.tsx         # Individual quest card component
+│   │   │   ├── Text.tsx              # Typography utility component
+│   │   │   └── WeeklyChallenges.tsx  # Weekly challenge tracker
+│   │   └── quest.tsx                 # Quest Screen Shell
+│   ├── setup screens/
+│   │   ├── components/
+│   │   │   └── NekoLogTitle.tsx      # Global title header
+│   │   ├── Splashscreen.tsx          # Animated boot splash screen
+│   │   └── login.tsx                 # GitHub connect screen with blinking Neko mascot
+│   └── store/
+│       └── useAppStore.ts            # Zustand global store (nav, XP, quests, streaks)
+├── App.tsx                           # Application router & main entry shell
+├── app.json                          # Expo build configuration
+├── index.ts                          # Entry point register
+└── package.json                      # Dependencies & scripts
 ```
 
 ---
@@ -69,50 +99,62 @@ Nekolog/
 
 ### Prerequisites
 
-Ensure you have **Node.js** (v18+) and **npm** or **yarn** installed on your development machine.
+- **Node.js** v18+
+- **npm** (or yarn)
+- **Expo Go** app on your physical device, or an iOS Simulator / Android Emulator
 
 ### Installation
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/sreekar020/Nekolog.git
-   cd Nekolog
-   ```
+```bash
+# 1. Clone the repository
+git clone https://github.com/sreekar020/Nekolog.git
+cd Nekolog
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+# 2. Install dependencies
+npm install
 
-3. **Start the development server:**
-   ```bash
-   npm run start
-   ```
+# 3. Start the development server
+npm run start
+```
 
 ### Running on Devices
 
-- **iOS Simulator**: Press `i` in your terminal after starting the dev server, or run `npm run ios`.
-- **Android Emulator**: Press `a` in your terminal after starting the dev server, or run `npm run android`.
-- **Expo Go App**: Scan the QR code displayed in your terminal using your iOS Camera or Android Expo Go app to test directly on your physical device.
-- **Web App**: Press `w` in your terminal after starting the dev server, or run `npm run web`.
+| Target | Command |
+|---|---|
+| iOS Simulator | Press `i` in terminal, or `npm run ios` |
+| Android Emulator | Press `a` in terminal, or `npm run android` |
+| Physical Device | Scan the QR code with **Expo Go** |
+| Web Browser | Press `w` in terminal, or `npm run web` |
 
 ---
 
-## 🎮 How it Works (Core Architecture)
+## 🎮 Core Architecture
 
-### 💾 State Management (`useAppStore.ts`)
-Nekolog uses a lightweight **Zustand** store to manage global states across different tabs:
-- **`currentScreen`**: Seamlessly switches between the splash loading screen, login portal, and the home dashboard.
-- **`activeTab`**: Tracks navigation between *Home*, *Quests*, and *Profile*.
-- **XP & Levels**: Handles gamification calculations. Standard level threshold increases every 200 XP.
-- **Quest Actions**: Increments/decrements progress for Daily Commits, Pushes, and Issues, and dishes out corresponding XP rewards + bonuses when quests are fully completed.
+### 💾 State Management — `useAppStore.ts`
 
-### 🎭 Interactive Mascot Animations (`login.tsx` & `CommitCatBanner.tsx`)
-- **Blinking Mascot**: In the login portal, Neko's eyes blink periodically using a ping-pong state loop through preloaded PNG assets (`neko_open`, `neko_mid`, `neko_closed`).
-- **Peeking Guide**: Slides in from the left and displays speech bubbles alerting users to login steps. Tap the screen to dismiss Neko and slide them back.
+Nekolog uses a lightweight **Zustand** store to manage global state across all tabs:
+
+- **`currentScreen`** — Switches between splash, login, and the main dashboard.
+- **`activeTab`** — Tracks which tab is active: *Home*, *Quests*, or *Profile*.
+- **XP & Levels** — Gamification calculations; level threshold increases by 200 XP per level.
+- **Streak Tracking** — Counts and persists consecutive active days.
+- **Quest Actions** — Increments/decrements daily commit, push, and issue progress; awards XP + completion bonuses when quests are finished.
+
+### 🎭 Mascot Animations — `login.tsx` & `CommitCatBanner.tsx`
+
+- **Blinking Loop** — On the login screen, Neko blinks periodically through preloaded PNG frames (`neko_open` → `neko_mid` → `neko_closed`).
+- **Peeking Guide** — Neko slides in from the edge with speech bubbles. Tap to dismiss.
+
+### 🌿 Git Branch Pipeline Graph — `GitPipelineGraph.tsx`
+
+Renders a branch tree for a selected repository using **React Native SVG**, with coloured pipeline status indicators (✅ Success / 🔄 Running / ❌ Failed) for each branch node.
+
+### 📊 Weekly Performance Heatmap — `WeeklyPerformance.tsx`
+
+A custom GitHub-contribution-style calendar grid rendered with React Native SVG, coloured by activity intensity for the trailing 7-day window.
 
 ---
 
 ## ⚖️ License
 
-Distributed under the MIT License. See [LICENSE](file:///c:/Users/sreek/Desktop/Nekolog/LICENSE) for more details.
+Distributed under the **MIT License**. See [LICENSE](./LICENSE) for details.
