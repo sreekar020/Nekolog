@@ -34,11 +34,14 @@ Nekolog is a premium, beautifully crafted developer dashboard and quest-tracking
 | Layer | Technology |
 |---|---|
 | Language | TypeScript `~6.0.3` |
+| UI Runtime | React `19.2.3` |
 | Framework | React Native `0.85.3` + Expo SDK `~56.0.8` |
 | State Management | Zustand `^5.0.14` |
 | Animations | React Native Reanimated `4.3.1` |
 | Vector Graphics | React Native SVG `15.15.4` |
 | Safe Area Handling | React Native Safe Area Context `~5.7.0` |
+| Font Loading | Expo Font `~56.0.5` |
+| Status Bar | Expo Status Bar `~56.0.4` |
 
 ---
 
