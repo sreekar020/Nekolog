@@ -4,8 +4,8 @@ import Svg, { Path, Rect, Circle } from 'react-native-svg';
 import { Text } from './Text';
 
 interface GlobalNavBarProps {
-  activeTab: 'Home' | 'Quests' | 'Profile' | 'DevCard';
-  onTabPress?: (tab: 'Home' | 'Quests' | 'Profile' | 'DevCard') => void;
+  activeTab: 'Home' | 'Quests' | 'Friends' | 'Profile' | 'DevCard';
+  onTabPress?: (tab: 'Home' | 'Quests' | 'Friends' | 'Profile' | 'DevCard') => void;
 }
 
 export const GlobalNavBar: React.FC<GlobalNavBarProps> = ({ activeTab, onTabPress }) => {
@@ -37,43 +37,55 @@ export const GlobalNavBar: React.FC<GlobalNavBarProps> = ({ activeTab, onTabPres
       name: 'Quests' as const,
       icon: (color: string) => (
         <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          {/* Trophy Cup Outline */}
+          {/* Tilted Sword/Wand Icon */}
           <Path
-            d="M6 9c0 3.31 2.69 6 6 6s6-2.69 6-6V3H6v6z"
+            d="M18.36 5.64a2 2 0 010 2.82L9 17.82l-3.82.82.82-3.82 9.36-9.36a2 2 0 012.82 0z"
             stroke={color}
-            strokeWidth="2.2"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-          {/* Left Handle */}
           <Path
-            d="M6 6H4.5A2.5 2.5 0 0 0 2 8.5v1A2.5 2.5 0 0 0 4.5 12H6"
+            d="M17 10l-3-3"
             stroke={color}
-            strokeWidth="2.2"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </Svg>
+      ),
+    },
+    {
+      name: 'Friends' as const,
+      icon: (color: string) => (
+        <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          {/* Friends Two-User Icon */}
+          <Path
+            d="M17 21v-2a3 3 0 00-3-3H6a3 3 0 00-3 3v2"
+            stroke={color}
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-          {/* Right Handle */}
-          <Path
-            d="M18 6h1.5a2.5 2.5 0 0 1 2.5 2.5v1a2.5 2.5 0 0 1-2.5 2.5H18"
+          <Circle
+            cx="10"
+            cy="8"
+            r="4"
             stroke={color}
-            strokeWidth="2.2"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-          {/* Stem Stand */}
           <Path
-            d="M12 15v5"
+            d="M23 21v-2a3 3 0 00-3-3h-1"
             stroke={color}
-            strokeWidth="2.2"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-          {/* Base */}
           <Path
-            d="M8 20h8"
+            d="M16 3.13a4 4 0 010 7.75"
             stroke={color}
-            strokeWidth="2.2"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
           />

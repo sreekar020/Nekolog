@@ -13,6 +13,8 @@ import { LoginScreen } from './src/setup screens/login';
 import { HomeScreen } from './src/home screen/Home';
 import { QuestScreen } from './src/quest screen/quest';
 import { ProfileScreen } from './src/profile screen/profile screen';
+import { DevCardScreen } from './src/dev card/devcard';
+import { FriendsScreen } from './src/friends screen/friends';
 import { useAppStore } from './src/store/useAppStore';
 
 export default function App() {
@@ -83,9 +85,19 @@ export default function App() {
           <QuestScreen onTabPress={setActiveTab} />
         )}
 
-        {/* 1c. Profile Screen */}
+        {/* 1c. Friends Screen */}
+        {currentScreen === 'home' && activeTab === 'Friends' && (
+          <FriendsScreen onTabPress={setActiveTab} />
+        )}
+
+        {/* 1d. Profile Screen */}
         {currentScreen === 'home' && activeTab === 'Profile' && (
           <ProfileScreen onTabPress={setActiveTab} />
+        )}
+
+        {/* 1e. DevCard Screen */}
+        {currentScreen === 'home' && activeTab === 'DevCard' && (
+          <DevCardScreen onTabPress={setActiveTab} />
         )}
 
         {/* 2. Login Screen (rendered in background, fades in) */}

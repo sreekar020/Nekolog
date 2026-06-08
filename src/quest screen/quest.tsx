@@ -7,7 +7,7 @@ import { DailyQuests } from './components/DailyQuests';
 import { WeeklyChallenges } from './components/WeeklyChallenges';
 
 interface QuestScreenProps {
-  onTabPress?: (tab: 'Home' | 'Quests' | 'Profile' | 'DevCard') => void;
+  onTabPress?: (tab: 'Home' | 'Quests' | 'Friends' | 'Profile' | 'DevCard') => void;
 }
 
 export const QuestScreen: React.FC<QuestScreenProps> = ({ onTabPress }) => {
