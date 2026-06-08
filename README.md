@@ -21,6 +21,7 @@ Nekolog is a premium, beautifully crafted developer dashboard and quest-tracking
 - **📌 Pinned Portfolio** — Highlight your best repositories directly on your profile.
 - **🏅 Recent Badges** — Showcase recently earned achievement badges on the profile screen.
 - **👤 Profile Header** — Rich developer profile header with avatar, username, level badge, and XP snapshot.
+- **🗃️ DevCard Shareable Screen** — A premium developer identity card dashboard featuring featured repositories, contribution stats, a github-style contribution heatmap grid, and easy sharing integrations.
 - **💎 Ultra-Premium UI/UX**
   - Animated cross-fade splash → login screen transition.
   - Sleek, high-contrast dark theme with translucent glassmorphic elements.
@@ -54,6 +55,13 @@ Nekolog/
 │   ├── images/                      # Avatar profiles and splash assets
 │   └── mascot/                      # Neko frame-by-frame PNG states (open, mid, closed, peek, curious)
 ├── src/
+│   ├── dev card/
+│   │   ├── components/
+│   │   │   ├── DevPulseCard.tsx      # Core DevCard showing repos and contribution heatmap
+│   │   │   └── ShareButtons.tsx      # Social sharing action button grid (LinkedIn, X, WhatsApp, PNG)
+│   │   └── devcard.tsx               # DevCard Screen Shell
+│   ├── friends screen/
+│   │   └── friends.tsx               # Friends network placeholder screen
 │   ├── home screen/
 │   │   ├── components/
 │   │   │   ├── CommitCatBanner.tsx   # Animated Neko mascot banner with speech bubbles
@@ -138,7 +146,7 @@ npm run start
 Nekolog uses a lightweight **Zustand** store to manage global state across all tabs:
 
 - **`currentScreen`** — Switches between splash, login, and the main dashboard.
-- **`activeTab`** — Tracks which tab is active: *Home*, *Quests*, or *Profile*.
+- **`activeTab`** — Tracks which tab is active: *Home*, *Quests*, *Friends*, *Profile*, or *DevCard*.
 - **XP & Levels** — Gamification calculations; level threshold increases by 200 XP per level.
 - **Streak Tracking** — Counts and persists consecutive active days.
 - **Quest Actions** — Increments/decrements daily commit, push, and issue progress; awards XP + completion bonuses when quests are finished.
@@ -155,6 +163,14 @@ Renders a branch tree for a selected repository using **React Native SVG**, with
 ### 📊 Weekly Performance Heatmap — `WeeklyPerformance.tsx`
 
 A custom GitHub-contribution-style calendar grid rendered with React Native SVG, coloured by activity intensity for the trailing 7-day window.
+
+### 🗃️ DevCard Identity Card — `devcard.tsx`
+
+Renders a high-fidelity, shareable developer card containing:
+- **Featured Repositories**: Up to 3 select repositories displaying language badges, commit metrics, and star counts.
+- **GitHub Contribution Heatmap**: A 10-column contribution grid showing color-coded activity frequencies.
+- **Branding & Footer**: Official DevPulse branding including a custom Git-branch vector logo.
+- **Social Integrations**: Action triggers for LinkedIn, Twitter / X, WhatsApp, and image exports ("Save PNG").
 
 ---
 
