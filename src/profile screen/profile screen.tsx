@@ -9,14 +9,14 @@ import { AllReposScreen } from './all repos';
 import { useAppStore } from '../store/useAppStore';
 
 interface ProfileScreenProps {
-  onTabPress?: (tab: 'Home' | 'Quests' | 'Profile' | 'DevCard') => void;
+  onTabPress?: (tab: 'Home' | 'Quests' | 'Friends' | 'Profile' | 'DevCard') => void;
 }
 
 export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onTabPress }) => {
   const profileSubScreen = useAppStore((state) => state.profileSubScreen);
   const setProfileSubScreen = useAppStore((state) => state.setProfileSubScreen);
 
-  const handleTabPress = (tab: 'Home' | 'Quests' | 'Profile' | 'DevCard') => {
+  const handleTabPress = (tab: 'Home' | 'Quests' | 'Friends' | 'Profile' | 'DevCard') => {
     if (tab === 'Profile') {
       setProfileSubScreen('main');
     }

@@ -10,15 +10,15 @@ import { WeeklyPerformance } from './components/WeeklyPerformance';
 import { QuestsPreview } from './components/QuestsPreview';
 
 interface HomeScreenProps {
-  activeTab?: 'Home' | 'Quests' | 'Profile' | 'DevCard';
-  onTabPress?: (tab: 'Home' | 'Quests' | 'Profile' | 'DevCard') => void;
+  activeTab?: 'Home' | 'Quests' | 'Friends' | 'Profile' | 'DevCard';
+  onTabPress?: (tab: 'Home' | 'Quests' | 'Friends' | 'Profile' | 'DevCard') => void;
 }
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({
   activeTab: propActiveTab,
   onTabPress,
 }) => {
-  const [localActiveTab, setLocalActiveTab] = useState<'Home' | 'Quests' | 'Profile' | 'DevCard'>('Home');
+  const [localActiveTab, setLocalActiveTab] = useState<'Home' | 'Quests' | 'Friends' | 'Profile' | 'DevCard'>('Home');
   
   const activeTab = propActiveTab || localActiveTab;
   const setActiveTab = onTabPress || setLocalActiveTab;

@@ -1,9 +1,17 @@
 import { create } from 'zustand';
 
+export interface DevCardRepository {
+  name: string;
+  language: string;
+  languageColor: string;
+  commits: number;
+  stars: number;
+}
+
 export interface AppState {
   // Navigation/Screen State
   currentScreen: 'splash' | 'login' | 'home';
-  activeTab: 'Home' | 'Quests' | 'Profile' | 'DevCard';
+  activeTab: 'Home' | 'Quests' | 'Friends' | 'Profile' | 'DevCard';
   profileSubScreen: 'main' | 'all_repos';
 
   // User Profile State
@@ -11,6 +19,12 @@ export interface AppState {
   level: number;
   streakDays: number;
   xp: number;
+  
+  // DevCard State
+  devCardRepos: DevCardRepository[];
+  devCardContributionsCount: string;
+  devCardContributionsRange: string;
+  devCardHeatmap: number[][];
   
   // Daily Quests Progress
   commitsCount: number;
@@ -22,7 +36,7 @@ export interface AppState {
   
   // Actions
   setScreen: (screen: 'splash' | 'login' | 'home') => void;
-  setActiveTab: (tab: 'Home' | 'Quests' | 'Profile' | 'DevCard') => void;
+  setActiveTab: (tab: 'Home' | 'Quests' | 'Friends' | 'Profile' | 'DevCard') => void;
   setUsername: (username: string) => void;
   addXp: (amount: number) => void;
   incrementCommits: () => void;
@@ -43,6 +57,27 @@ export const useAppStore = create<AppState>((set) => ({
   level: 12,
   streakDays: 6,
   xp: 2450,
+
+  // DevCard Defaults
+  devCardRepos: [
+    { name: 'hyper-terminal-ai', language: 'Rust', languageColor: '#FF7B72', commits: 124, stars: 489 },
+    { name: 'nebula-query-engine', language: 'Go', languageColor: '#58A6FF', commits: 98, stars: 312 },
+    { name: 'react-visual-git-graph', language: 'TypeScript', languageColor: '#F1E05A', commits: 256, stars: 820 },
+  ],
+  devCardContributionsCount: '+126',
+  devCardContributionsRange: 'over 30d',
+  devCardHeatmap: [
+    [0, 3, 3], // Col 1 (grey, green, green)
+    [3, 2, 0], // Col 2 (green, light-green, grey)
+    [3, 0, 3], // Col 3 (green, grey, green)
+    [3, 0, 3], // Col 4 (green, grey, green)
+    [2, 3, 3], // Col 5 (light-green, green, green)
+    [0, 3, 2], // Col 6 (grey, green, light-green)
+    [3, 2, 0], // Col 7 (green, light-green, grey)
+    [3, 0, 3], // Col 8 (green, grey, green)
+    [3, 0, 3], // Col 9 (green, grey, green)
+    [2, 3, 3], // Col 10 (light-green, green, green)
+  ],
   
   // Daily Quests Defaults (Starts close to completion for premium preview feel)
   commitsCount: 2,
